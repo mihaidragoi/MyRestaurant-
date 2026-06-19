@@ -1,0 +1,61 @@
+﻿<Window x:Class="RestaurantIncercareaDoua.View.OrderDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Detalii Comandă" Height="550" Width="450" WindowStartupLocation="CenterScreen" Background="AliceBlue">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Background="White" Margin="0,0,0,15">
+            <Border BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="DATE CLIENT" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Detalii.NumeClient, StringFormat='Nume: {0}'}"/>
+                        <TextBlock Text="{Binding Detalii.Telefon, StringFormat='Tel: {0}'}"/>
+                        <TextBlock Text="{Binding Detalii.Adresa, StringFormat='Adresă: {0}'}" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="DATE COMANDĂ" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Detalii.IdComanda, StringFormat='Cod: #{0}'}"/>
+                        <TextBlock Text="{Binding Detalii.DataComanda, StringFormat='Data: {0:dd/MM/yyyy HH:mm}'}"/>
+                        <TextBlock Text="{Binding Detalii.OraEstimativa, StringFormat='Livrare est.: {0:HH:mm}', TargetNullValue='Livrare est.: Necalculat'}"/>
+                        <TextBlock Text="{Binding Detalii.Status, StringFormat='Status: {0}'}" FontWeight="Bold" Foreground="DarkOrange" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Text="PREPARATE COMANDATE" FontSize="14" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,5"/>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Detalii.Preparate}" AutoGenerateColumns="False" IsReadOnly="True" Background="White" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Denumire" Binding="{Binding Denumire}" Width="*"/>
+                <DataGridTextColumn Header="Buc." Binding="{Binding Cantitate}" Width="40"/>
+                <DataGridTextColumn Header="Preț" Binding="{Binding PretBucata, StringFormat='{}{0} RON'}" Width="70"/>
+                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat='{}{0} RON'}" Width="80" FontWeight="Bold"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="3" Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,15,0,0">
+            <StackPanel HorizontalAlignment="Right">
+                <TextBlock Text="{Binding Detalii.CostMancare, StringFormat='Cost Mâncare: {0:F2} RON'}" FontSize="14" Margin="0,2"/>
+                <TextBlock Text="{Binding Detalii.CostTransport, StringFormat='Transport / Discount: {0:F2} RON'}" FontSize="14" Margin="0,2" Foreground="Gray"/>
+                <Separator Margin="0,5"/>
+                <TextBlock Text="{Binding Detalii.CostTotal, StringFormat='TOTAL: {0:F2} RON'}" FontSize="18" FontWeight="Bold" Foreground="DarkGreen"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
